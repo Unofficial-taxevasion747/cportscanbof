@@ -1,0 +1,64 @@
+#
+# cportscan.cna - Fast TCP Port Scanner BOF for Cobalt Strike
+# Usage: cportscan <ip/cidr,ip/cidr,...> <port,port,...>
+#
+# Features:
+#   - Non-blocking sockets for faster scanning
+#   - 2 second timeout per port
+#   - Supports single IP, multiple IPs, CIDR ranges
+#   - Results grouped by open/closed
+#
+# Developed By: machine1337
+
+alias cportscan {
+    local('$bid $targets $ports $barch $handle $data $args');
+    
+    $bid = $1;
+    
+    if (size(@_) != 3) {
+        berror($bid, "Usage: cportscan <ip/cidr,ip/cidr,...> <port,port,...>");
+        berror($bid, "Developed By: machine1337");
+
+        return;
+    }
+    
+    $targets = $2;
+    $ports = $3;
+    
+    if ($targets eq "" || $ports eq "") {
+        berror($bid, "Error: Empty targets or ports");
+        return;
+    }
+    
+    $barch = barch($bid);
+    $bof_file = script_resource("cportscan." . $barch . ".o");
+    
+    if (!-exists $bof_file) {
+        berror($bid, "BOF not found: " . $bof_file);
+        return;
+    }
+    
+    $handle = openf($bof_file);
+    $data = readb($handle, -1);
+    closef($handle);
+    
+    if (strlen($data) == 0) {
+        berror($bid, "BOF file is empty");
+        return;
+    }
+    
+    $args = bof_pack($bid, "zz", $targets, $ports);
+    
+    btask($bid, "cportscan " . $targets . " " . $ports);
+    beacon_inline_execute($bid, $data, "go", $args);
+}
+
+beacon_command_register("cportscan", "Fast TCP port scanner", 
+    "Usage: cportscan <ip/cidr,ip/cidr,...> <port,port,...>\n\n" .
+    "Fast non-blocking TCP connect scan with 2s timeout\n\n" .
+    "Examples:\n" .
+    "  cportscan 192.168.1.1 80\n" .
+    "  cportscan 192.168.1.1,192.168.1.2 80,443,445\n" .
+    "  cportscan 192.168.1.0/24 22,3389\n" .
+    "  cportscan 10.0.0.0/24,192.168.1.5 445,5985");
+    
